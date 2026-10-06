@@ -49,4 +49,27 @@ public class UniteEnsRestAPI {
                 .entity(helper.getUEBySemestre(semestre))
                 .build();
     }
+    @Path("/update")
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response updateUniteEnseignement(UniteEnseignement ue){
+        if(helper.updateUniteEnseignement(ue.getCode(), ue)){
+            return Response.status(200).entity("Succes").build();
+        }
+        else{
+            return Response.status(404).entity("Erreur").build();
+        }
+    }
+    @Path("/delete/{code}")
+    @DELETE
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response deleteUEByCode(@PathParam("code") int code){
+        if(helper.deleteUniteEnseignement(code)){
+            return Response.status(200).entity("Supprimée").build();
+        }
+        else{
+            return Response.status(404).entity("Erreur").build();
+        }
+    }
 }
